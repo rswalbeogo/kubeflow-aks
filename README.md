@@ -2,11 +2,11 @@
 
 •	az set subscription
 
-•	az aks get-credentials --resource-group kubeflow-rg-01 --name kubeflow-test-aks-14
+•	az aks get-credentials --resource-group _kubeflow-rg-01_ --name _kubeflow-test-aks-14_
 
 •	kubelogin convert-kubeconfig -l azurecli
 
-•	az aks update -n kubeflow-test-aks-14 -g kubeflow-rg-01 --attach-acr kubeflowacr01
+•	az aks update -n _kubeflow-test-aks-14_ -g _kubeflow-rg-01_ --attach-acr _kubeflowacr01_
 
 •	while ! kustomize build tls | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
 
