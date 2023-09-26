@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dex
+data:
+  config.yaml: |
+    issuer: http://dex.auth.svc.cluster.local:5556/dex
+    storage:
+      type: kubernetes
+      config:
+        inCluster: true
+    web:
+      http: 0.0.0.0:5556
+    logger:
+      level: "debug"
+      format: text
+    oauth2:
+      skipApprovalScreen: true
+    enablePasswordDB: true  
+    staticPasswords:
+    - email: user@example.com
+      hash: $2a$10$KBCuYx.wclTgKFnqXx.uK.PISJil9iR9l23GJc53Vojrz7a0XtwZO
+      username: kehinde.famodu@walgreens.com
+      userID: "15841185641711"
+    staticClients:
+    - idEnv: OIDC_CLIENT_ID
+      redirectURIs: ["/authservice/oidc/callback"]
+      name: 'Dex Login Application'
+      secretEnv: OIDC_CLIENT_SECRET

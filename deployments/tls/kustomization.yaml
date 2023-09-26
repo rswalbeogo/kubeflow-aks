@@ -1,0 +1,78 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+kind: Kustomization
+
+# Cert-Manager
+# Istio
+# OIDC Authservice
+# Dex
+# KNative
+# Kubeflow namespace
+# Kubeflow Roles
+# Kubeflow Istio Resources
+
+
+# Kubeflow Pipelines
+# Katib
+# Central Dashboard
+# Admission Webhook
+# Jupyter Web App
+# Notebook Controller
+# Profiles + KFAM
+# Volumes Web App
+# Tensorboards Controller
+# Tensorboard Web App
+# Training Operator
+# User namespace
+
+# KServe
+resources:
+- ../../manifests/common/cert-manager/cert-manager/base
+- ../../manifests/common/cert-manager/kubeflow-issuer/base
+- ../../manifests/common/istio-1-16/istio-crds/base
+- ../../manifests/common/istio-1-16/istio-namespace/base
+- ../../manifests/common/istio-1-16/istio-install/base
+- ../../manifests/common/oidc-authservice/base
+- ../../manifests/common/dex/overlays/istio
+- ../../manifests/common/knative/knative-serving/overlays/gateways
+- ../../manifests/common/knative/knative-eventing/base
+- ../../manifests/common/istio-1-16/cluster-local-gateway/base
+- ../../manifests/common/kubeflow-namespace/base
+- ../../manifests/common/kubeflow-roles/base
+- ../../manifests/common/istio-1-16/kubeflow-istio-resources/base
+- ../../manifests/apps/pipeline/upstream/env/cert-manager/platform-agnostic-multi-user
+- ../../manifests/apps/katib/upstream/installs/katib-with-kubeflow
+- ../../manifests/apps/centraldashboard/upstream/overlays/kserve
+- ../../manifests/apps/admission-webhook/upstream/overlays/cert-manager
+- ../../manifests/apps/jupyter/jupyter-web-app/upstream/overlays/istio
+- ../apps/jupyter/notebook-controller/upstream/overlays/kubeflow
+- ../../manifests/apps/profiles/upstream/overlays/kubeflow
+- ../../manifests/apps/volumes-web-app/upstream/overlays/istio
+- ../../manifests/apps/tensorboard/tensorboard-controller/upstream/overlays/kubeflow
+- ../../manifests/apps/tensorboard/tensorboards-web-app/upstream/overlays/istio
+- ../../manifests/apps/training-operator/upstream/overlays/kubeflow
+- ../../manifests/common/user-namespace/base
+- ../../manifests/contrib/kserve/kserve
+- ../../manifests/contrib/kserve/models-web-app/overlays/kubeflow
+
+patches:
+- path: istio-webhook-aks-patch.yaml
+- path: kf-istio-resources.yaml
+- path: dex-config-map.yaml
+- patch: |-
+    - op: replace
+      path: "/spec/type"
+      value: LoadBalancer
+  target:
+    kind: Service
+    name: istio-ingressgateway
+    version: v1
+- patch: |-
+    - op: replace
+      path: "/apiVersion"
+      value: autoscaling/v2
+  target:
+    group: autoscaling
+    kind: HorizontalPodAutoscaler
+    name: .*
+    version: v2beta2

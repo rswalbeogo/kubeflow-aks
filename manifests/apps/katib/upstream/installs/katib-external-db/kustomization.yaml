@@ -1,0 +1,39 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: kubeflow
+resources:
+  # Namespace.
+  - ../../components/namespace/
+  # Katib controller.
+  - ../../components/controller/
+  # Katib CRDs.
+  - ../../components/crd/
+  # Katib DB manager.
+  - ../../components/db-manager/
+  # Katib UI.
+  - ../../components/ui/
+  # Katib Cert Generator
+  - ../../components/cert-generator/
+  # Katib webhooks.
+  - ../../components/webhook/
+images:
+  - name: akskubeflow.azurecr.io/kubeflowkatib/katib-controller
+    newName: akskubeflow.azurecr.io/kubeflowkatib/katib-controller
+    newTag: v0.15.0
+  - name: akskubeflow.azurecr.io/kubeflowkatib/katib-db-manager
+    newName: akskubeflow.azurecr.io/kubeflowkatib/katib-db-manager
+    newTag: v0.15.0
+  - name: akskubeflow.azurecr.io/kubeflowkatib/katib-ui
+    newName: akskubeflow.azurecr.io/kubeflowkatib/katib-ui
+    newTag: v0.15.0
+  - name: akskubeflow.azurecr.io/kubeflowkatib/cert-generator
+    newName: akskubeflow.azurecr.io/kubeflowkatib/cert-generator
+    newTag: v0.15.0
+patchesStrategicMerge:
+  - patches/db-manager.yaml
+# Modify katib-mysql-secrets with parameters for the DB.
+secretGenerator:
+  - name: katib-mysql-secrets
+    envs:
+      - secrets.env

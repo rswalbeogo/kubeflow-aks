@@ -1,0 +1,25 @@
+{
+	"name": "Ubuntu",
+	"image": "mcr.microsoft.com/devcontainers/base:jammy",
+	"features": {
+		"akskubeflow.azurecr.io/devcontainers/features/azure-cli:1": {
+			"installBicep": true
+		},
+		"akskubeflow.azurecr.io/devcontainers/features/dotnet:1": {},
+		"akskubeflow.azurecr.io/devcontainers/features/common-utils:2": {
+			"configureZshAsDefaultShell": true
+		},
+		"akskubeflow.azurecr.io/devcontainers/features/docker-in-docker:2": {},
+		"akskubeflow.azurecr.io/devcontainers/features/kubectl-helm-minikube:1": {},
+	},
+	"postCreateCommand": "./.devcontainer/installTools.sh",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"GitHub.copilot",
+				"GitHub.copilot-labs",
+				"ms-azuretools.vscode-bicep"
+			]
+		}
+	}
+}

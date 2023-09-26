@@ -1,0 +1,81 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: katib-config
+  namespace: kubeflow
+data:
+  metrics-collector-sidecar: |-
+    {
+      "StdOut": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/file-metrics-collector:v0.15.0"
+      },
+      "File": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/file-metrics-collector:v0.15.0"
+      },
+      "TensorFlowEvent": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/tfevent-metrics-collector:v0.15.0",
+        "resources": {
+          "limits": {
+            "memory": "1Gi"
+          }
+        }
+      }
+    }
+  suggestion: |-
+    {
+      "random": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/suggestion-hyperopt:v0.15.0"
+      },
+      "tpe": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/suggestion-hyperopt:v0.15.0"
+      },
+      "grid": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/suggestion-optuna:v0.15.0"
+      },
+      "hyperband": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/suggestion-hyperband:v0.15.0"
+      },
+      "bayesianoptimization": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/suggestion-skopt:v0.15.0"
+      },
+      "cmaes": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/suggestion-goptuna:v0.15.0"
+      },
+      "sobol": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/suggestion-goptuna:v0.15.0"
+      },
+      "multivariate-tpe": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/suggestion-optuna:v0.15.0"
+      },
+      "enas": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/suggestion-enas:v0.15.0",
+        "resources": {
+          "limits": {
+            "memory": "200Mi"
+          }
+        }
+      },
+      "darts": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/suggestion-darts:v0.15.0"
+      },
+      "pbt": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/suggestion-pbt:v0.15.0",
+        "persistentVolumeClaimSpec": {
+          "accessModes": [
+            "ReadWriteMany"
+          ],
+          "resources": {
+            "requests": {
+              "storage": "5Gi"
+            }
+          }
+        }
+      }
+    }
+  early-stopping: |-
+    {
+      "medianstop": {
+        "image": "akskubeflow.azurecr.io/kubeflowkatib/earlystopping-medianstop:v0.15.0"
+      }
+    }
