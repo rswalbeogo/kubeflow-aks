@@ -14,7 +14,7 @@
 
 •	kubectl get services -n istio-system istio-ingressgateway -o yaml
 
-•	**>> input the ip address displayed from above command into certificate file in deployment/tls and manifest/tls**
+•	**_>> input the ip address displayed from above command into certificate file in deployment/tls and manifest/tls_**
 
 •	kubectl apply -f _~/kubeflow_091723/kubeflow-aks/manifests/tls/certificate.yaml_
 
