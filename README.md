@@ -14,13 +14,13 @@
 
 •	kubectl get services -n istio-system istio-ingressgateway -o yaml
 
-•	>> input the ip address displayed from above command into certificate file in deployment/tls and manifest/tls
+•	**>> input the ip address displayed from above command into certificate file in deployment/tls and manifest/tls**
 
-•	kubectl apply -f ~/kubeflow_091723/kubeflow-aks/manifests/tls/certificate.yaml
+•	kubectl apply -f _~/kubeflow_091723/kubeflow-aks/manifests/tls/certificate.yaml_
 
-•	kubectl apply -f ~/kubeflow_091723/kubeflow-aks/deployments/tls/certificate.yaml
+•	kubectl apply -f _~/kubeflow_091723/kubeflow-aks/deployments/tls/certificate.yaml_
 
-•	>> input ip address in web browser
+•	**_>> input ip address in web browser_**
 
 •	Email address: user@example.com
 
