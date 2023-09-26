@@ -1,30 +1,30 @@
-az login as SP
+•	az login as SP
 
-az set subscription
+•	az set subscription
 
-az aks get-credentials --resource-group kubeflow-rg-01 --name kubeflow-test-aks-14
+•	az aks get-credentials --resource-group kubeflow-rg-01 --name kubeflow-test-aks-14
 
-kubelogin convert-kubeconfig -l azurecli
+•	kubelogin convert-kubeconfig -l azurecli
 
-az aks update -n kubeflow-test-aks-14 -g kubeflow-rg-01 --attach-acr kubeflowacr01
+•	az aks update -n kubeflow-test-aks-14 -g kubeflow-rg-01 --attach-acr kubeflowacr01
 
-while ! kustomize build tls | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
+•	while ! kustomize build tls | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
 
-kubectl rollout restart deployment dex -n auth
+•	kubectl rollout restart deployment dex -n auth
 
-kubectl get services -n istio-system istio-ingressgateway -o yaml
+•	kubectl get services -n istio-system istio-ingressgateway -o yaml
 
->> input the ip address displayed from above command into certificate file in deployment/tls and manifest/tls
+•	>> input the ip address displayed from above command into certificate file in deployment/tls and manifest/tls
 
-kubectl apply -f ~/kubeflow_091723/kubeflow-aks/manifests/tls/certificate.yaml
+•	kubectl apply -f ~/kubeflow_091723/kubeflow-aks/manifests/tls/certificate.yaml
 
-kubectl apply -f ~/kubeflow_091723/kubeflow-aks/deployments/tls/certificate.yaml
+•	kubectl apply -f ~/kubeflow_091723/kubeflow-aks/deployments/tls/certificate.yaml
 
->> input ip address in web browser
+•	>> input ip address in web browser
 
-Email address: user@example.com
+•	Email address: user@example.com
 
-Password : 12341234
+•	Password : 12341234
 
 ==================================================================================================================================
 
