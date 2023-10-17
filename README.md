@@ -8,6 +8,8 @@
 
 •	az aks update -n _kubeflow-test-aks-14_ -g _kubeflow-rg-01_ --attach-acr _kubeflowacr01_
 
+•	cd manifests
+
 •	while ! kustomize build tls | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
 
 •	kubectl rollout restart deployment dex -n auth
